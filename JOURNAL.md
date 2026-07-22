@@ -19,3 +19,17 @@ This issue is a reasonable size for me because it mainly affects one API file an
 **Setup confirmation:** [x] App runs locally at localhost:5173
 
 **Cohort ledger:** [x] Issue added to cohort ledger
+
+## Week 8 — Reproduction & solution planning
+
+**Reproduction commit link:** [link to commit documenting the reproduced issue]
+
+**Reproduction summary:**
+[ I reproduced issue #154 by starting the application with `make run` and requesting the health endpoint with `curl -i http://localhost:8000/health`. The endpoint returned a 503 response, and the backend log showed that SQLAlchemy rejected the raw `"SELECT 1"` string because textual SQL must be wrapped with `text()`.]
+
+**PLAN.md link:** [link to PLAN.md in your fork]
+
+**Walkthrough video (recommended):** [link to your Loom video, ≤2 min — recommended, not graded]
+
+**Blockers or open questions:**
+[Anything you're still uncertain about going into Week 9, or leave blank]
