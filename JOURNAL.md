@@ -22,14 +22,27 @@ This issue is a reasonable size for me because it mainly affects one API file an
 
 ## Week 8 — Reproduction & solution planning
 
-**Reproduction commit link:** [link to commit documenting the reproduced issue]
+**Reproduction commit link:** https://github.com/Bansi3756/pathreview/commit/adf1762
 
 **Reproduction summary:**
-[ I reproduced issue #154 by starting the application with `make run` and requesting the health endpoint with `curl -i http://localhost:8000/health`. The endpoint returned a 503 response, and the backend log showed that SQLAlchemy rejected the raw `"SELECT 1"` string because textual SQL must be wrapped with `text()`.]
+I reproduced issue #154 by starting the application with `make run` and requesting the health endpoint with `curl -i http://localhost:8000/health`. The endpoint returned a 503 response, and the backend log showed that SQLAlchemy rejected the raw `"SELECT 1"` string because textual SQL must be wrapped with `text()`.
 
-**PLAN.md link:** [link to PLAN.md in your fork]
+**PLAN.md link:** https://github.com/Bansi3756/pathreview/blob/fix/154-health-check-sql/PLAN.md
 
-**Walkthrough video (recommended):** [link to your Loom video, ≤2 min — recommended, not graded]
+**Walkthrough video (recommended):** Not recorded.
 
 **Blockers or open questions:**
-[Anything you're still uncertain about going into Week 9, or leave blank]
+The endpoint has a separate pre-existing Redis configuration issue, so the PostgreSQL unit tests need to isolate the Redis and vector database checks.
+
+## Week 9 — Solution building & PR submission
+
+### Check-in 1 (mid-week)
+
+**Current progress:**
+I updated the PostgreSQL health probe to execute `text("SELECT 1")` instead of a raw SQL string. I also added two unit tests covering a successful PostgreSQL probe and a database failure.
+
+**Next steps:**
+I will finish the full-project checks, push my commits, open a draft pull request, and request peer or mentor feedback.
+
+**Blockers:**
+The repository has pre-existing lint, unit-test, and local Mypy environment failures unrelated to issue #154. My focused health tests, Ruff checks, Black checks, and Mypy check for `api/routes/health.py` pass.
