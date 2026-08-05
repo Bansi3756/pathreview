@@ -46,3 +46,22 @@ I will finish the full-project checks, push my commits, open a draft pull reques
 
 **Blockers:**
 The repository has pre-existing lint, unit-test, and local Mypy environment failures unrelated to issue #154. My focused health tests, Ruff checks, Black checks, and Mypy check for `api/routes/health.py` pass.
+
+### Check-in 2 (end of week)
+
+**PR link:** https://github.com/ascherj/pathreview/pull/796
+
+**Branch:** `fix/154-health-check-sql`
+
+**What you built:**
+I fixed the PostgreSQL health probe by wrapping `"SELECT 1"` with SQLAlchemy’s `text()` function. I also added tests for successful and failed database checks.
+
+**Tests added or updated:**
+I created `tests/unit/test_health.py` with two tests covering a successful PostgreSQL probe and a database failure.
+
+**Self-review confirmation:** [x] make check passes with no new failures  [x] make test-unit passes with no new failures
+
+**Pre-existing failures:**
+The repository-wide unit suite reported 377 passed and 53 unrelated pre-existing failures. Both new health tests passed. Repository-wide linting also contains pre-existing errors, while the focused Ruff, Black, and API Mypy checks passed.
+
+**Draft PR feedback received from:** none — requested feedback in Slack but did not receive a response before submission.
