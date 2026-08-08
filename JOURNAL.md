@@ -65,3 +65,34 @@ I created `tests/unit/test_health.py` with two tests covering a successful Postg
 The repository-wide unit suite reported 377 passed and 53 unrelated pre-existing failures. Both new health tests passed. Repository-wide linting also contains pre-existing errors, while the focused Ruff, Black, and API Mypy checks passed.
 
 **Draft PR feedback received from:** none — requested feedback in Slack but did not receive a response before submission.
+
+## Week 10 — Iteration & reflection
+
+### Reviewer feedback
+
+**Feedback received:** [ ] Yes  [x] No — still awaiting review
+
+**Summary of feedback:**
+No reviewer or maintainer feedback was received. Reviewer feedback is not being provided during Summer 2026, so I completed my reflection based on my own testing and self-review.
+
+**How you responded:**
+No response or additional code changes were needed because no reviewer feedback was received.
+
+---
+
+### Reflection
+
+**What was harder than you expected?**
+The development environment and repository-wide checks were harder than I expected. `make check` reported many pre-existing lint errors, and the full unit-test suite reported 53 failures unrelated to issue #154. I had to determine which failures came from my changes and which already existed. The pre-commit hooks also required me to fix formatting and type annotations before I could successfully commit my work.
+
+**What did you learn about working in a large codebase?**
+I learned that a small code change can interact with several parts of a large application. Although my fix only changed the PostgreSQL probe in `api/routes/health.py`, the same endpoint also checks Redis and the vector database. I had to isolate those dependencies in my tests so that the separate Redis configuration issue did not hide the PostgreSQL result. I also learned the importance of following the repository’s existing branch, testing, formatting, and pull-request conventions.
+
+**How did AI tools help — and where did they fall short?**
+AI tools helped me understand the SQLAlchemy error, navigate unfamiliar files, interpret terminal output, plan the fix, and design focused tests. They were especially useful when explaining why SQLAlchemy 2.x requires `text("SELECT 1")` and why the pre-commit hooks rejected an earlier commit. However, I still needed to run every command myself and compare the suggestions with the project’s actual code and conventions. AI could not automatically determine whether repository-wide failures were pre-existing, so I had to verify that through focused tests and my own investigation.
+
+**What would you do differently if you started over?**
+I would run `make check` and `make test-unit` before changing any code so that I had a clear record of the repository’s baseline failures. I would also use the project’s recommended Python version instead of Python 3.13 because the newer version caused a Mypy and NumPy stub compatibility error. Finally, I would inspect the health endpoint’s Redis and vector database dependencies earlier so I could plan the test isolation sooner.
+
+**What are you most proud of from this module?**
+I am most proud that I followed the complete open-source contribution process for a real bug: selecting and claiming an issue, reproducing it, planning a solution, implementing the fix, writing focused tests, and submitting a ready-for-review pull request. Both new health tests passed, and the fix preserves the failure behavior for a genuine database error while resolving the SQLAlchemy 2.x problem.
